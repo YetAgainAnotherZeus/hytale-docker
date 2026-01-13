@@ -1,39 +1,27 @@
 services:
   hytale:
-    build: .
+    image: ghcr.io/yetagainanotherzeus/hytale-docker:latest
     container_name: hytale-server
     restart: unless-stopped
     
-    # Environment variables
     environment:
       - JAVA_MIN_MEMORY=4G
       - JAVA_MAX_MEMORY=8G
       - PATCHLINE=release
       - SERVER_BIND=0.0.0.0:5520
       - AUTH_MODE=authenticated
-      # Add any boot commands (comma-separated for multiple)
-      # - BOOT_COMMANDS=say Server starting
-    
-    # Port mapping - Hytale uses UDP port 5520
     ports:
       - "5520:5520/udp"
     
-    # Volume mounts for persistent data
     volumes:
-      # Credentials file for hytale-downloader (OAuth login data)
       - hytale-credentials:/hytale/credentials
-      # Server data and worlds
       - hytale-server-data:/hytale/server
-      # Downloaded game files (cache to avoid re-downloading)
       - hytale-game-files:/hytale/game
-      # Backup directory
       - hytale-backups:/hytale/backups
     
-    # stdin/tty for interactive console
     stdin_open: true
     tty: true
     
-    # Healthcheck
     healthcheck:
       test: ["CMD", "pgrep", "-f", "HytaleServer.jar"]
       interval: 30s
