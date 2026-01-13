@@ -27,4 +27,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: "ghcr.io/YetAgainAnotherZeus/hytale-docker:${{ github.sha }},ghcr.io/YetAgainAnotherZeus/hytale-docker:latest"
+          tags: "ghcr.io/yetagainanotherzeus/hytale-docker:${{ github.sha }},ghcr.io/yetagainanotherzeus/hytale-docker:latest"
